@@ -17,7 +17,7 @@ import utils.util as utils
 # import wandb
 
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "7"
+#os.environ["CUDA_VISIBLE_DEVICES"] = "7"
 
 def train(args, net, train_dl, criterion, optimizer):
     net.train()

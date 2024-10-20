@@ -17,7 +17,7 @@ from utils.visualization import faces_label
 # import wandb
 
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "7"
+#os.environ["CUDA_VISIBLE_DEVICES"] = "7"
 # os.environ["WANDB_MODE"] = "offline"
 
 def train(args, net, train_dl, criterion, optimizer):
