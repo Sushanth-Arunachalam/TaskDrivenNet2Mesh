@@ -4,10 +4,15 @@
 python train_seg.py \
 --dataset_name IntrA \
 --experiment_name IntrA \
+--mode train \
 --num_classes 2 \
---k_eig_list 153 64 16 \
+--k_eig_list 751 64 16 \
 --lr 3e-4 \
 --batch_size 3 \
---weight_decay 0.05 \
+--weight_decay 0.3 \
 --smoothing 0.1 \
---augment_data \'
+--augment_data \
+--random_rotate_axis y \
+--warm_up_epochs 20 \
+--epochs 3000 \
+--iter_num 20 \
