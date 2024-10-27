@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ## run the training
-python train_cls.py \
+python train_seg.py \
 --dataset_name IntrA \
 --experiment_name IntrA \
 --mode train \
