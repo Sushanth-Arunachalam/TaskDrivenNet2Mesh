@@ -29,11 +29,11 @@ def train(args, net, train_dl, criterion, optimizer):
     total_num_faces = 0
 
     with tqdm(total=len(train_dl), desc="Training") as tq:
-
+    
         for batch_idx, data in enumerate(train_dl):
             # load train data
             verts, faces, verts_normals, evals, evecs, verts_dihedralAngles, hks, mass, labels, mesh_path = data
-
+            print("data", data)
             # Move to args.device
             verts = verts.to(args.device)
             faces = faces.to(args.device)
@@ -196,12 +196,12 @@ if __name__ == '__main__':
     # define the Net
     net = Net(C_in=args.feature_dim, C_out=args.num_classes, drop_path_rate=args.drop_prob,
               k_eig_list=args.k_eig_list, outputs_at='faces').to(args.device)
-
+    
     # define the segmentation_loss
     criterion = utils.segmentation_loss(smoothing=args.smoothing, loss_rate=args.loss_rate,
                                         use_adj_loss=args.use_adj_loss, num_classes=args.num_classes,
                                         iter_num=args.iter_num)
-
+    
     # save the checkpoints
     checkpoints_save_path = os.path.join('data', args.dataset_name, 'checkpoints', args.experiment_name)
     utils.ensure_folder_exists(checkpoints_save_path)
@@ -219,7 +219,7 @@ if __name__ == '__main__':
         warmup_cosine_lr = utils.warm_up_with_cosine_lr(args.warm_up_epochs, args.scheduler_eta_min, args.lr,
                                                         args.epochs, args.warm_up_T_max)
         scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda=warmup_cosine_lr)
-
+        print("args, net, train_dl, criterion, optimizer", args, net, train_dl, criterion, optimizer)
         for epoch in range(args.epochs):
             train_acc, train_loss = train(args, net, train_dl, criterion, optimizer)
             test_acc, test_loss = test(args, net, test_dl, criterion)
