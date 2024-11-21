@@ -181,6 +181,7 @@ if __name__ == '__main__':
     parser.add_argument('--use_adj_loss', action='store_true')
     parser.add_argument('--k_eig_list', nargs='+', default=[749, 64, 16], type=int, help='Multi-resolution input')
     parser.add_argument('--iter_num', type=int, default=3)
+    parser.add_argument('--cuda_devices', type=int, default=0)
 
     args = parser.parse_args()
 
