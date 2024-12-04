@@ -6,7 +6,7 @@ python train_seg.py \
 --experiment_name IntrA \
 --mode train \
 --num_classes 2 \
---k_eig_list 550 64 16 \
+--k_eig_list 749 64 16 \
 --lr 3e-4 \
 --batch_size 3 \
 --weight_decay 0.3 \

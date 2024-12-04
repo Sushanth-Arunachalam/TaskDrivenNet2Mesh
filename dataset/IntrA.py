@@ -55,7 +55,7 @@ class AneurysmSegDataset(Dataset):
             label_file = os.path.join(labels_path, f[:-9] + ".eseg")
 
             labels = np.loadtxt(label_file).astype(int)
-            labels[labels[:] == 2] = 1  # the boundary lines are grouped into aneurysm segments
+            labels[labels == 2] = 1  # the boundary lines are grouped into aneurysm segments
             labels = torch.tensor(np.ascontiguousarray(labels))
 
             self.labels_list.append(labels)
@@ -77,6 +77,11 @@ class AneurysmSegDataset(Dataset):
 
     def __getitem__(self, idx):
         # print("IntrA.py_75_verts_list", self.verts_list[idx].size())
+        verts = self.verts_list[idx]  # Shape: (num_vertices, 3)
+        faces = self.faces_list[idx]  # Shape: (num_faces, 3)
+        labels = self.labels_list[idx] 
+        print(f"Verts shape: {verts.shape}, Faces shape: {faces.shape}, Labels shape: {labels.shape}")
+    
         return self.verts_list[idx], self.faces_list[idx], self.verts_normals_list[idx], self.evals_list[idx], \
                self.evecs_list[idx], self.verts_dihedralAngles_list[idx], self.hks_list[idx], \
                self.mass_list[idx], self.labels_list[idx], self.mesh_path_list[idx]

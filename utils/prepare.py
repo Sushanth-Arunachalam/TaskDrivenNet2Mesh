@@ -10,7 +10,7 @@ import potpourri3d as pp3d
 import robust_laplacian
 
 import scipy
-import scipy.sparse.linalg as sla
+from scipy.sparse.linalg import eigsh
 import scipy.spatial
 
 import sklearn.neighbors
@@ -255,7 +255,10 @@ def compute_L_eigenvalue_decomposition_for_large_mesh_from_PP3d(verts, faces, ma
         while True:
             try:
                 # We would be happy here to lower tol or maxiter since we don't need these to be super precise, but for some reason those parameters seem to have no effect
-                evals_np, evecs_np = sla.eigsh(cot_eigsh, k=max_k_eig, M=Mmat, sigma=eps)
+                cot_eigsh_dense = cot_eigsh.toarray()
+                print(type(cot_eigsh))
+                print(cot_eigsh.shape)
+                evals_np, evecs_np = eigsh(cot_eigsh, k=min(max_k_eig, cot_eigsh.shape[0] - 1), M=Mmat, sigma=eps)
                 # Clip off any eigenvalues that end up slightly negative due to numerical weirdness
                 evals_np = np.clip(evals_np, a_min=0., a_max=float('inf'))
                 break
