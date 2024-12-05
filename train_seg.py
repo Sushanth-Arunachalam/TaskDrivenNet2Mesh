@@ -864,8 +864,7 @@ if __name__ == '__main__':
             if True == True:
               save_checkpoint(epoch, net, optimizer, test_loss, test_acc, checkpoint_filename)
               print("Saved checkpoint for epoch ", epoch)
-              #best_info['epoch'] = start_epoch + 1
-	      best_info['epoch'] = start_epoch + 1
+              best_info['epoch'] = start_epoch + 1
               with open('/content/gdrive/MyDrive/IntrA/Checkpoints/best.json', 'w') as f:
                 json.dump(best_info, f)
 
